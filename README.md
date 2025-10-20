@@ -2,7 +2,7 @@
 
 TradeFi is a feature-rich, professional trading platform designed for perpetual futures, spot, and options. It integrates advanced DeFi features, AI-powered analytics, and social copy trading to provide a comprehensive trading experience.
 
-## ✨ Key Features
+## Key Features
 
 *   📈 **Multiple Trading Products**: Trade perpetual futures, spot, and options with leverage up to 50x.
 *   💰 **DeFi Yield Generation**: Earn passive income by providing liquidity to platform pools.
