@@ -20,7 +20,10 @@ export const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
+    <header
+      className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80"
+      style={{ paddingTop: 'env(safe-area-inset-top)' }}
+    >
       <div className="container flex h-16 items-center justify-between px-4">
         <div className="flex items-center gap-4">
           <MobileDrawer />
@@ -28,8 +31,10 @@ export const Header = () => {
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary-glow">
               <TrendingUp className="h-5 w-5 text-primary-foreground" />
             </div>
-            <span className="hidden text-xl font-bold sm:inline">TradeFi</span>
+            {/* Always show branding on mobile */}
+            <span className="text-xl font-bold">TradeFi</span>
           </Link>
+          {/* Navigation hidden on mobile, visible on md+ */}
           <nav className="hidden md:flex items-center gap-1">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -51,7 +56,8 @@ export const Header = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}>
+          {/* Increase touch target size for mobile */}
+          <Button variant="ghost" size="icon" className="min-w-[44px] min-h-[44px]" onClick={() => setTheme(theme === "dark" ? "light" : "dark")}> 
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
             <span className="sr-only">Toggle theme</span>
