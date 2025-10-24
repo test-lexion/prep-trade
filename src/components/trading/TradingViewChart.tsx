@@ -46,7 +46,7 @@ interface TradingViewConfig {
     backgroundColor?: string;
     foregroundColor?: string;
   };
-  custom_css_url?: string;
+  onChartReady?: () => void;
   save_image: boolean;
 }
 
@@ -167,8 +167,8 @@ export const TradingViewChart = ({
     };
 
     fetchMarketData();
-    const interval = setInterval(fetchMarketData, 5000);
-    return () => clearInterval(interval);
+    const intervalId = setInterval(fetchMarketData, 5000);
+    return () => clearInterval(intervalId);
   }, [currentSymbol]);
 
   const initializeChart = () => {
