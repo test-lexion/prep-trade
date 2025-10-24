@@ -38,13 +38,26 @@ interface TradingViewConfig {
   details: boolean;
   hotlist: boolean;
   calendar: boolean;
-  studies_overrides: Record<string, any>;
-  overrides: Record<string, any>;
+  studies_overrides: Record<string, unknown>;
+  overrides: Record<string, unknown>;
   disabled_features: string[];
   enabled_features: string[];
-  loading_screen: Record<string, any>;
+  loading_screen: {
+    backgroundColor?: string;
+    foregroundColor?: string;
+  };
   custom_css_url?: string;
   save_image: boolean;
+}
+
+interface TradingViewWidget {
+  onChartReady?: (callback: () => void) => void;
+  subscribe?: (event: string, callback: () => void) => void;
+  symbolName?: () => string;
+  chart: () => {
+    setResolution: (resolution: string) => void;
+    createStudy: (study: string) => void;
+  };
 }
 
 interface TradingViewChartProps {
@@ -53,6 +66,10 @@ interface TradingViewChartProps {
   autosize?: boolean;
   interval?: string;
   theme?: 'light' | 'dark';
+  TradingView: {
+    widget: new (config: TradingViewConfig) => TradingViewWidget;
+    onChartReady?: () => void;
+  };
   className?: string;
   onSymbolChange?: (symbol: string) => void;
 }
@@ -60,7 +77,7 @@ interface TradingViewChartProps {
 declare global {
   interface Window {
     TradingView: {
-      widget: new (config: TradingViewConfig) => any;
+      widget: new (config: TradingViewConfig) => TradingViewWidget;
       onChartReady?: () => void;
     };
   }
@@ -76,12 +93,18 @@ export const TradingViewChart = ({
   onSymbolChange
 }: TradingViewChartProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const widgetRef = useRef<any>(null);
+  const widgetRef = useRef<TradingViewWidget | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentSymbol, setCurrentSymbol] = useState(symbol);
-  const [marketData, setMarketData] = useState<any>(null);
+  interface MarketData {
+    price?: number;
+    change24h?: number;
+    volume24h?: number;
+    // Add other fields as needed based on hyperliquidAPI.getMarketData response
+  }
+  const [marketData, setMarketData] = useState<MarketData | null>(null);
 
   // Hyperliquid symbol mapping
   const mapToTradingViewSymbol = (hlSymbol: string): string => {
@@ -134,7 +157,10 @@ export const TradingViewChart = ({
     const fetchMarketData = async () => {
       try {
         const data = await hyperliquidAPI.getMarketData(currentSymbol.replace('USD', ''));
-        setMarketData(data);
+        setMarketData({
+          ...data,
+          volume24h: typeof data.volume24h === 'string' ? Number(data.volume24h.replace(/,/g, '')) : data.volume24h
+        });
       } catch (err) {
         console.error('Failed to fetch market data:', err);
       }
@@ -237,21 +263,25 @@ export const TradingViewChart = ({
       containerRef.current.id = containerId;
       config.container_id = containerId;
 
+
       widgetRef.current = new window.TradingView.widget(config);
 
-      // Set up event listeners
-      widgetRef.current.onChartReady(() => {
-        setIsLoading(false);
-        
-        // Subscribe to symbol changes
-        widgetRef.current.subscribe('onSymbolChanged', () => {
-          const newSymbol = widgetRef.current.symbolName();
-          if (newSymbol && newSymbol !== tvSymbol) {
-            setCurrentSymbol(newSymbol);
-            onSymbolChange?.(newSymbol);
+      // Set onChartReady callback after widget instantiation
+      if (widgetRef.current && typeof widgetRef.current.onChartReady === 'function') {
+        widgetRef.current.onChartReady(() => {
+          setIsLoading(false);
+          // Subscribe to symbol changes
+          if (widgetRef.current) {
+            widgetRef.current.subscribe('onSymbolChanged', () => {
+              const newSymbol = widgetRef.current.symbolName();
+              if (newSymbol && newSymbol !== tvSymbol) {
+                setCurrentSymbol(newSymbol);
+                onSymbolChange?.(newSymbol);
+              }
+            });
           }
         });
-      });
+      }
 
     } catch (err) {
       console.error('Failed to initialize TradingView chart:', err);
