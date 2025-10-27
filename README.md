@@ -71,18 +71,4 @@ In the project directory, you can run:
 
 The project is organized with a clear separation of concerns to ensure scalability and maintainability.
 
-```
-test-lexion-trident-trade-suite/
-├── public/              # Static assets and robots.txt
-├── src/
-│   ├── components/      # Reusable components
-│   │   ├── trading/     # Feature-specific trading components
-│   │   └── ui/          # Base UI components from shadcn/ui
-│   ├── hooks/           # Custom React hooks
-│   ├── lib/             # Utility functions
-│   ├── pages/           # Top-level page components
-│   ├── App.tsx          # Main app component with routing
-│   └── main.tsx         # Application entry point
-├── package.json         # Project dependencies and scripts
-└── vite.config.ts       # Vite configuration
-```
+
