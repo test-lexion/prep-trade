@@ -1,1 +1,19 @@
 
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEzOTk4MzAsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhDNDRhZDlEZDRkMzc1MzZhOTVmODE1ODRCQTBkODU0ODdEREM5MGI1In0",
+    "payload": "eyJkb21haW4iOiJwcmVwLXRyYWRlLm5ldGxpZnkuYXBwIn0",
+    "signature": "QrGvj68HZO1HV8hS1sMbd6s7Ll91HGN+FDFt9ZemYwQH1zW1eJu8fYytx8ndhABXQo7Dmr8F7ncmJulIXYBIixs="
+  },
+  "frame": {
+    "version": "1",
+    "name": "prep-trade",
+    "iconUrl": "https://prep-trade.netlify.app/icon.png",
+    "homeUrl": "https://prep-trade.netlify.app",
+    "imageUrl": "https://prep-trade.netlify.app/image.png",
+    "buttonTitle": "Check this out",
+    "splashImageUrl": "https://prep-trade.netlify.app/splash.png",
+    "splashBackgroundColor": "#eeccff",
+    "webhookUrl": "https://prep-trade.netlify.app/api/webhook"
+  }
+}

@@ -2,34 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TradeFi - Advanced Perpetual Futures Trading Platform</title>
-    <meta name="description" content="Professional trading platform for perpetual futures, spot, and options with advanced DeFi features, AI analytics, and social copy trading." />
-    <meta name="author" content="TradeFi" />
-    <meta name="theme-color" content="#0f172a" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, interactive-widget=resizes-content"
+    />
 
-    <!-- Social Meta -->
-    <meta property="og:title" content="TradeFi - Advanced Trading Platform" />
-    <meta property="og:description" content="Trade perpetual futures, spot, and options with leverage up to 50x. AI-powered analytics and copy trading." />
-    <meta property="og:type" content="website" />
-  <meta property="og:image" content="/og-image.png" />
-    <meta property="og:url" content="https://tradefi.app" />
+    <meta
+      name="fc:frame"
+      content='{ 
+        "version": "next",
+        "imageUrl": "https://prep-trade.netlify.app/image.png",
+        "button": {
+          "title": "Launch",
+          "action": {
+            "type": "launch_frame",
+            "url": "https://prep-trade.netlify.app",
+            "name": "prep-trade",
+            "splashImageUrl": "",
+            "splashBackgroundColor": "#D0F9F6"
+          }
+        }
+      }'
+    />
 
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@tradefi" />
-  <meta name="twitter:image" content="/og-image.png" />
+    <title>prep-trade</title>
+    <link rel="icon" type="image/png" href="/logo.png" />
   </head>
-
   <body>
     <div id="root"></div>
-    <noscript>
-      <div style="padding:2rem;text-align:center;color:#fff;background:#0f172a;">
-        <h2>JavaScript Required</h2>
-        <p>This application requires JavaScript to run. Please enable JavaScript in your browser settings.</p>
-      </div>
-    </noscript>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
