@@ -55,7 +55,6 @@ To get a local copy up and running, follow these simple steps.
 To start the development server, run the following command. The application will be available at `http://localhost:8080`.
 
 ## 📜 Available Scripts
-
 In the project directory, you can run:
 
 *   `npm run dev`: Runs the app in development mode.
