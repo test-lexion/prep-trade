@@ -1,5 +1,4 @@
 # TradeFi - Advanced Perpetual Futures Trading Platform
-
 TradeFi is a feature-rich, professional trading platform designed for perpetual futures, spot, and options. It integrates advanced DeFi features, AI-powered analytics, and social copy trading to provide a comprehensive trading experience.
 ## Key Features
 
